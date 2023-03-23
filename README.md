@@ -42,7 +42,9 @@ const name = 'Lee Sang Hyun';
 const element = <h1>Hello, {name}</h1>;
 ```
 <br>
-태그의 속성값을 지정할 때는 따옴표를 사용하지 않고 중괄호를 사용한다. <br>
+태그의 속성값을 지정할 때는 따옴표를 사용하지 않고 중괄호를 사용한다. 
+
+<br>
 
 ```javascript
 //큰따옴표 사이에 문자열 넣기
