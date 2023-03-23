@@ -1,11 +1,57 @@
 # 201930421 이상현
-# 4주차
+# 4주차 23/03/23
 
+## JSX란? <br>
+1. JSX는 자바스크립트의 확장 문법이다. <br>
+2. JSX는 HTML과 비슷한 문법을 가지고 있다. <br>
+3. Babel은 Jsx를 React.createElement() 호출로 컴파일한다. <br>
+https://ko.reactjs.org/docs/introducing-jsx.html#gatsby-focus-wrapper
 
+## Jsx의 역할 <br>
+1. Jsx는 내부적으로 xml/html 코드를 자바스크립트로 변환한다. <br>
+2. React가 createElement 함수를 사용하여 자동으로 자바스크립트로 변환.<br>
+3. 만일 js 작업을 할 경우 직접 createElement 함수를 사용해야 한다. <br>
+```javascript
+const element = React.createElement(
+  'h1',
+  {className: 'greeting'},
+  'Hello, world!'
+);
+//JSX 미사용
+```
+<br>
 
+```javascript
+const element = <h1 className="greeting">Hello, world!</h1>;
+//JSX 사용
+```
+<br>
+
+## JSX의 장점 <br>
+1. 코드가 간결해진다. <br>
+2. 가독성이 좋아진다. <br>
+3. injection Attack 이라 불리는 해킹방법을 방어하여 보안에 강하다. <br>
+
+## JSX 사용법
+1. JSX는 자바스크립트 표현식이다. <br>
+2. 자바스크립트 문법에 xml/html 문법을 사용할 수 있다. <br>
+3. 만일 html이나 xml에 자바스크립트를 사용하고 싶다면 {}를 사용한다. <br>
+4. 아래 코드처럼 섞어서 사용한다.
+```javascript
+const name = 'Lee Sang Hyun';
+const element = <h1>Hello, {name}</h1>;
+```
+<br>
+태그의 속성값을 지정할 때는 따옴표를 사용하지 않고 중괄호를 사용한다. <br>
+
+```javascript
+//큰따옴표 사이에 문자열 넣기
+const element = <div tabIndex="0"></div>;
+```
+<br>
 
 ---
-# 3주차
+# 3주차 23/03/16
 ## 리액트의 정의 <br>
 사용자 인터페이스를 만들기 위한 자바스크립트 라이브러리<br>
 다양한 자바스크립트 ui프레임워크<br>                        
