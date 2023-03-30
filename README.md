@@ -1,4 +1,195 @@
 # 201930421 이상현
+
+# 5주차 23/03/30
+## 엘리먼트에 대해 알아보기 <br>
+### 1.엘리먼트의 정의 <br>
+- 엘리먼트는 리액트 앱을 구성하는 요소를 의미한다.
+- 엘리먼트는 리액트 앱의 가장 작은 빌딩 블록들 이다.
+- 웹사이트의 경우는 DOM 엘리먼트이며 HTML요소를 의미합니다.
+<br><br>
+
+### 2.엘리먼트의 생김새
+- 리액트 엘리먼트는 자바스크립트 객체의 형태로 존재한다.
+- 컴포넌트, 속성 및 내부의 모든 children을 포함하는 일반 JS객체이다.
+- 이 객체는 불변성을 가지고 있다.
+<br><br>
+버튼을 나태내기 위한 엘리먼트의 예
+```javascript
+const element = <button>Click me</button>;
+```
+<br>
+
+- 리액트 엘리먼트의 예를 보면 type에 태그 대신 리액트 컴포넌트가 들어가 
+있는 것 외에는 차이가 없다.<br>
+- 자바스크립트 객체이다.<br><br> 
+
+실제 createELement() 함수가 동작하는 과정이다.
+아래 코드는 Button과 ConfirmDialog 컴포넌트고, ConfirmDialog는 Button을 포함한다.
+```javascript
+function Button(props) {
+  return(
+    <button className={"bg-${props.color}"}>
+      <b>
+        {props.children}
+      </b>
+    </button>;
+  ) 
+}
+
+function ConfirmDialog(props) {
+  return(
+    <div>
+      <p>내용을 확인하셨으면 확인 버튼을 눌러주세요.</p>
+      <Button color="green">확인</Button>
+    </div>
+  );
+}
+```
+<br><br>
+ConfirmDialog 컴포넌트를 엘리먼트이 형태로 표시하려면 아래와 같이 작성한다.
+```javascript
+{
+  type: 'div',
+  props: {
+    children: [
+      {
+        type: 'p',
+        props: {
+          children: '내용을 확인하셨으면 확인 버튼을 눌러주세요.'
+        }
+      },
+      {
+        type: Button,
+        props: {
+          color: 'green',
+          children: '확인'
+        }
+      }
+    ]
+  }
+}
+```
+<br>
+
+### 3.엘리먼트의 특징 <br>
+- 엘리먼트는 불변성을 가진다. <br>
+- 즉 한번 생성된 엘리먼트의 children이나 속성은 변경할 수 없다. <br>
+
+### 만약 내용이 바뀐다면 어떻게 해야할까? <br>
+- 이 때는 컴포넌트를 통해 새로운 엘리먼트를 생성하면 된다. <br>
+- 그 다음 엘리먼트를 렌더링하면 된다. <br><br>
+
+### 엘리먼트 렌더링하기 <br>
+- 렌더링을 위해 ReactDOM.render() 함수를 사용한다. <br>
+- 렌더링되는 과정은 Virtual DOM에서 실제 DOM으로 이동하는 과정이다. <br>
+
+### 렌더링된 엘리먼트 업데이트하기 <br>
+- 엘리먼트는 불변성을 가지고 있기 때문에 엘리먼트를 업데이트 하려면 다시 생성해야 한다. <br><br>
+
+## 컴포넌트에 대해 알아보기 <br>
+- 컴포넌트는 리액트 앱을 구성하는 빌딩 블록이다. <br>
+- 컴포넌트는 엘리먼트를 반환하는 함수이다. <br>
+- 컴포넌트는 속성을 받아서 엘리먼트를 반환한다. <br><br>
+
+
+## Props에 대해 알아보기 <br>
+1. ### props의 개념 <br>
+- props는 prop의 준말이다.
+- props는 컴포넌트의 속성을 의미한다.
+- 컴포넌트에 어떤 속성을 넣느냐에 따라서 속성이 다은 엘리먼트가 출력된다.
+- props는 컴포넌트에 전달 할 다양한 정보를 담고 있는 자바스크립트 객체이다.
+- 에어비엔비의 예도 마찬가지이다.
+<br><br>
+
+2. ### Props의 특징 <br>
+- props는 읽기 전용이다 변경 X.
+- 속성이 다른 엘리먼트를 생성하려면 새로무 엘리먼트를 생성해야 한다.
+<br><br>
+
+### pure 함수와 impure 함수
+- pure 함수는 인수로 받은 정보가 함수 내에서도 변하지 않는 함수.
+- impure 함수는 인수로 받은 정보가 함수 내에서 변하는 함수.
+<br><br>
+
+3. ### Props의 사용법
+- JSX에서는 key-value 쌍으로 props를 구성한다.
+- JSX를 사용하지 않는 경우의 props의 전달 방법은 crateElement() 함수를 사용하는 것이다.
+<br><br>
+
+## 컴포넌트 만들기 <br>
+1. ### 컴포넌트의 종류 <br>
+- 리액트 초기 버전을 사용했을떄 클래스형 컴포넌트로 구현했다.
+- 이후 Hook 이라는 개념이 나오면서 최근에는 함수형 컴포넌트를 사용한다.
+- 예전에 작성된 코드나 문서들이 클래스형 컴포넌트로 작성되어 있기때문에 알아두어야 한다.
+<br><br>
+
+2. ### 함수형 컴포넌트 <br>
+- Welcome 컴포넌트에는 props를 받아, 받은 props중 name키의 값을 "안녕" 뒤에 넣어 반환한다.
+```javascript
+function Welcome(props) {
+  return <h1>안녕, {props.name}</h1>;
+}
+```
+<br>
+
+3. ### 클래스형 컴포넌트 <br>
+- Welcome 컴포넌트는 React.Component class로부터 상속받아서 선언한다.
+```javascript
+class Welcome extends React.Component {
+  render() {
+    return <h1>안녕, {this.props.name}</h1>;
+  }
+}
+```
+<br>
+
+4. ### 컴포넌트 이름 찾기 <br>
+- 이름은 항상 대문자로 시작해야 한다.
+- 왜냐하면 리액트는 소문자로 시작하는 컴포넌트를 DOM 태그로 간주하기 때문이다.
+- 컴포넌트 파일 이름과 컴포넌트 이름은 같게 한다.
+<br><br>
+
+5. ### 컴포넌트의 렌더링 <br>
+- 렌더링의 방식은 다음 코드와 같다.
+```javascript
+function Welcome(props) {
+  return <h1>안녕, {props.name}</h1>;
+}
+
+const element = <Welcome name="언제" />;
+ReactDOM.render(
+    element,
+    document.getElementById('root');
+);
+```
+<br><br>
+
+## 컴포넌트 합성 <br>
+- 컴포넌트 합성은 여러 개의 컴포넌트를 합쳐서 하나로 만드는 것이다.
+- 리액트에서는 컴포넌트안에 또 다른 컴포넌트를 사용 할 수 있기때문에 복잡한 화면을 여러 개의 컴포넌트로 나누어서 구현 할 수 있다.
+- 다음 코드에서는 props의 값을 다르게 해서 Welcome 컴포넌트를 여러번 사용한다.
+```javascript
+function Welcome(props) {
+  return <h1>안녕, {props.name}</h1>;
+}
+
+function App(props) {
+  return (
+    <div>
+      <Welcome name="Mike" />
+      <Welcome name="Lee" />
+      <Welcome name="Kim" />
+    </div>
+  );
+}
+ReactDOM.render(
+  <App />,
+  document.getElementById('root')
+);
+```
+<br>
+
+---
 # 4주차 23/03/23
 
 ## JSX란? <br>
