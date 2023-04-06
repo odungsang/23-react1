@@ -1,5 +1,73 @@
 # 201930421 이상현
 
+# 6주차 23/04/06
+
+## 컴포넌트 추출
+- 복잡한 컴포넌트를 쪼개서 여러 개의 컴포넌트로 나눌 수가 있다.
+-  큰 컴포넌트에서 일부를 추출해서 새로운 컴포넌트를 만드는 것이다.
+- 실무에서는 처음부터 1개의 컴포넌트에 하나의 기능만 사용하도록 하는게 좋다.
+<br><br>
+
+## State와 생명주기
+### 1. State란?
+- State는 컴포넌트의 상태를 의미한다.
+- 상태의 의미는 컴포넌트가 가지고 있는 데이터를 의미한다.
+- 정확히는 컴포넌트의 변경가능한 데이터를 의미한다.
+- State가 변하면 다시 렌더링이 되기 때문에 렌더링과 관련된 값만 State에 포함시켜야 한다.
+<br><br>
+
+### 2. State의  특징
+- 리액트 만의 특별한 형태가 아닌 단지 자바스크립트 객체일 뿐이다.
+- 예의 LikeButton은 class 컴포넌트이다.
+- constructorsms 생성자이고 그 안에있는 this.state가 현 컴포넌트이 state이다.
+* 함수형 에서는 useState()를 사용한다. 
+
+```javascript
+class LikeButton extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+       liked: false
+      };
+  }
+}
+```
+- state는 변경은 가능하다고 했지만 직접 수정해서는 안된다.
+- state를 변경하고자 할때는 setstate() 함수를 사용해야 한다.
+
+```javascript
+//state를 직접 수정(잘못된 사용법)
+this.state = {
+  name: 'React'
+};
+//setstate 함수를 통한 수정(정상적인 사용법)
+this.setState  ({
+  name: 'React'
+});
+```
+### component vs. element vs. instance
+- element - 재료
+- component - 빵틀
+- instance - 재료를 빵 틀에 넣고 만든 빵
+<br>
+
+## 생명주기에 대해 알아보기
+- 생명주기는 컴포넌트의 생성 시점, 사용시점, 종료시점을 나타낸다.
+- constructor가 실행, 되면서 컴포넌트가 생성된다.
+- 생성 직후 componentDidMount() 함수가 호출된다.
+- 컴포넌트가 소멸하기 전까지 여러 번 렌더링한다.
+- 렌더링은 props,setState(), forceUpdate()에 의해 상태가 변경되면 이루어진다.
+- 그리고 렌더링이 끝나면 componentDindUpdate() 함수가 호출된다.
+- 마지막으로 컴포넌트가 언마운트되면 componentWillUnmount() 함수가 호출된다.
+<br>
+
+
+
+
+
+
+<br><br>
+
 # 5주차 23/03/30
 ## 엘리먼트에 대해 알아보기 <br>
 ### 1.엘리먼트의 정의 <br>
