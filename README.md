@@ -1,5 +1,33 @@
 # 201930421 이상현
 
+# 8주차 중간고사 23/04/20 
+
+## 훅을 이용한 리액트 앱 만들기
+
+```javascript
+
+import React, { useState } from 'react';
+
+function FruitButton() {
+  // useState hook을 사용하여 fruit state를 생성하고 기본값 설정
+  const [fruit, setFruit] = useState("");
+
+  return (
+    <div style={{padding : 16}}>
+      {/* 각 버튼을 클릭할 때마다 setFruit 함수를 호출하여 fruit state를 갱신한다 */}
+      <h1 >{`어떤 과일을 좋아하나요?  ${fruit}`}</h1>
+      <button style={{margin : 8}} onClick={() => setFruit('사과')}>사과</button>
+      <button style={{margin : 8}} onClick={() => setFruit('오렌지')}>오렌지</button>
+      <button style={{margin : 8}} onClick={() => setFruit('바나나')}>바나나</button> 
+    </div>
+  );
+}
+
+export default FruitButton;
+
+```
+<br><br>
+
 # 7주차 23/04/13
 
 ## Hook(훅)이란 무엇인가?
