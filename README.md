@@ -1,5 +1,239 @@
 # 201930421 이상현
 
+# 10주차 23/05/04
+
+# 리스트와 키
+
+## 리스트와 키란 무었인가?
+- 리스트는 자바스크립트의 변수나 객체를 하나의 변수로 묶어 놓은 배열과 같은 것이다.
+- 키는 각 객체나 아이템을 구분할 수 있는 고유한 값을 의마한다.
+- 리액트에서는 배열과 키를 사용하는 반복되는 다수의 엘리먼트를 쉽게 렌더링 할 수 있다.
+<br><br>
+
+## 여러 개의 컴포넌트 렌더링하기
+- 예의 에어비엔비의 화면처럼 같은 컴포넌트를 화면에 반복적으로 나타내야 할 경우 배열에 들어있는 엘리먼틀를 map() 함수를 이용하여 렌더링한다.
+- 다음은 numbers 배열에 들어익는 각각의 요소를 map()를 이용하여 하나씩 추출하여, 2를 곱한 후 doubled라는 배열에 다시 넣는 코드이다.
+```javascript
+const doubled = numbers.map((number) => number * 2);
+```
+- 다음은 리액트에서 map()함수를 사용한 예제이다.
+```javascript
+const numbers = [1, 2, 3, 4, 5];
+const listItems = numbers.map((number) =>
+  <li>{number}</li>
+);
+```
+- 이 코드는 numbers의 요소에 2를 곱하는 대신 li 태그를 결합해서 리턴하고 있다.
+- 리턴된 listitems는 ul 태그와 결합해서 렌더링된다.
+```javascript
+ReactDom.render(
+  <ul>
+    <li>{1}</li>
+    <li>{2}</li>
+    <li>{3}</li>
+    <li>{4}</li>
+    <li>{5}</li>
+  </ul>
+  document.getElementById('root')
+)
+```
+<br><br>
+
+## 기본적인 리스트 컴포넌트
+- 앞서 작성한 코드를 별도의 컴포넌트로 분리하면 다음과 같다.
+- 이 컴포넌트는 props로 받은 숫자를 numbers로 받아 리스트로 렌더링해 준다.
+```javascript
+function NumberList(props) {
+  const numbers = props.numbers;
+  const listItems = numbers.map((number) =>
+    <li>{number}</li>
+  );
+  return (
+    <ul>{listItems}</ul>
+  );
+}
+const numbers = [1, 2, 3, 4, 5];
+ReactDom.render(
+  <NumberList numbers={numbers} />,
+  document.getElementById('root')
+);
+```
+- 이 코드를 실행하면 "리스트 아이템에 무조건 키가 있어야 한다" 는 경고 문구가 나온다.
+- 경고 문구가 나오는 이유는 각각의 아이템에 key props가 없기 때문이다.
+<br><br>
+
+## 리스트의 키에 대해 알아보기
+- 리스트에서의 키는 "리스트에서 아이템을 구별하기 위한 고유의 문자열" 이다.
+- 이 키는 리스트에서 어떤 아이템이 변경, 추가 또는 제거되었는지 구분하기 위해 사용된다.
+- 키는 같은 리스트에 잇는 엘리먼트 사이에서만 고유한 값이면 된다.
+<br><br>
+<br><br>
+
+
+# 폼
+
+## 폼이란 무었인가?
+- 폼이란 일반적으로 사용자로부터 입력을 받기 위한 양식에서 많이 사용된다.
+```javascript
+// 사용예
+<form>
+  <label>
+    Name:
+    <input type="text" name="name" />
+  </label>
+  <input type="submit" value="Submit" />
+</form>
+```
+## 제어 컴포넌트
+- 제어 컴포넌트는 사용자가 입력한 값에 접근하고 제어할 수 있도록 해주는 컴포넌트이다.
+  1. HTML폼 자체적으로 state를 관리
+  2. 제어 컴포넌트에서 state를 관리
+- 다음 코드는 사용자의 이름을 입력 받는 HTML폼을 리액트 제어 컴포넌트로 만든 것이다.
+```javascript
+function NameForm(props) {
+  const [value, setValue] = useState('');
+
+  const handleChange = (event) => {
+    setValue(event.target.value);
+  }
+  const handleSubmit = (event) => {
+    alert('입력한 이름 ' + value);
+    event.preventDefault();
+  }
+  return (
+    <form onSubmit={handleSubmit}>
+      <label>
+        이름 : 
+        <input type="text" value={value} onChange={handleChange}/>
+      </label>
+      <button type="submit">제출</button>
+    </form>
+  );
+}
+```
+## textarea 태그
+- HTML에서는 textarea 의 children으로 텍스트가 들어가는 형태이다.
+```javascript
+<textarea>
+  안녕
+</textarea>
+```
+- 리액트에서는 state를 통해 태그의 value라는 attribute를 변경하여 텍스트를 표시한다.
+```javascript
+function RequestForm(props) {
+  const [value, setValue] = useState('요청사항을 입력하세요');
+
+  const handleChange = (event) => {
+    setValue(event.target.value);
+  }
+
+  const handleSubmit = (event) => {
+    alert('입력한 요청사항 : ' + value);
+    event.preventDefault();
+  }
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <label>
+        요청사항 :
+        <textarea value={value} onChange={handleChange} />
+      </label>
+      <button type="submit">제출</button>
+    </form>
+  );
+}
+```
+<br>
+
+## select 태그
+- select 태그도 textarea와 동일하다.
+```javascript
+<select>
+  <option value="apple">사과</option>
+  <option value="banana">바나나</option>
+  <option value="orange">오렌지</option>
+  <option value="grape">포도</option>
+</select>
+
+// 응용예시
+
+...
+...
+return (
+    <form onSubmit={handleSubmit}>
+      <label>
+        과일을 선택하세요.
+        <textarea value={value} onChange={handleChange} />
+        <select>
+          <option value="apple">사과</option>
+          <option value="banana">바나나</option>
+          <option value="orange">오렌지</option>
+          <option value="grape">포도</option>
+        </select>
+      </label>
+      <button type="submit">제출</button>
+    </form>
+  );
+```
+<br>
+
+## File input 태그
+- File input 태그는 그 값이 읽기 전용이기 때문에 리액트에서는 비제어 컴포넌트가 된다.
+```javascript
+<input type="file"/>
+```
+<br><br>
+
+## 여러 개의 입력 다루기기
+```javascript
+function Reservation(props) {
+  const [haveBreakfast, setHaveBreakfast] = useState(true);
+  const [numberOfGuest, setNumberOfGuest] = useState(2);
+
+  const handleSubmit = (event) => {
+    alert("아침식사 여부 : ${haveBreakfast}, 방문객 수: ${numberOfGuest}"); 
+    event.preventDefault();
+  }
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <label>
+        아침식사 여부 :
+        <input type="checkbox" checked={haveBreakfast} 
+        onChange={(event) => 
+        setHaveBreakfast(event.target.checked)} />
+      </label>
+      <br />
+      <label>
+        방문객 수 :
+        <input type="number" value={numberOfGuest} 
+        onChange={(event) => 
+        setNumberOfGuest(event.target.value)} />
+      </label>
+      <br />
+      <button type="submit">제출</button>
+    </form>
+  );
+}
+```
+<br>
+
+## Input Null Value
+- 제어 컴포넌트에 value prop을 정해진 값으로 넣으면 코드를 수정하지 않는 한 입력값을 바꿀 수 없다.
+- 만약 value prop은 넣되 자유롭게 입력 할 수 있게 만들고 싶다면 값에 undefined나 null을 넣으면 된다.
+```javascript
+ReactDom.render(<input value="hi" />, rootNode);
+
+setTimeout(function(){
+  ReactDom.render(<input value={null} />, rootNode);
+}, 1000);
+```
+
+
+
+
+<br><br>
+
 # 9주차 23/04/27
 
 ## 이벤트 핸들링
