@@ -13,9 +13,9 @@
 - 특정 컴포넌트가 하위 컴포넌트를 포함하는 형태의 합성 방법이다.
 - 컴포넌트에 따라서는 어떤 자식 엘리먼틑가 들어올 지 미리 예상할 수 없는 경우가 있다.
 - 범용적인 '박스' 역할을 하는 Sidebar 혹은 Dialog 같은 컴포넌트가 이에 해당한다.
-- 이런 컴포넌트에서는 cildren prop을 사용하여 자식 엘리먼트를 출력하여 그대로 전달하는 것이 좋다.
-- 이때 cildren prop은 컴포넌트의 props에 기본적으로 들어있는 cildren 속성을 사용한다.
-- 다음과 같이 props.children을 사용하면 해당 컴포넌트의 하위 컴포넌트가 모두 cildren 으로 들어오게된다.
+- 이런 컴포넌트에서는 children prop을 사용하여 자식 엘리먼트를 출력하여 그대로 전달하는 것이 좋다.
+- 이때 children prop은 컴포넌트의 props에 기본적으로 들어있는 children 속성을 사용한다.
+- 다음과 같이 props.children을 사용하면 해당 컴포넌트의 하위 컴포넌트가 모두 children 으로 들어오게된다.
 ```javascript
 function FancyBorder(props){
     return(
